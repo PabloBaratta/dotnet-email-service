@@ -1,0 +1,44 @@
+trigger:
+  branches:
+    include:
+      - master
+      - dev
+
+pr:
+  branches:
+    include:
+      - master
+      - dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  dotnetVersion: '8.0.x'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET'
+  inputs:
+    packageType: 'sdk'
+    version: $(dotnetVersion)
+
+- task: Cache@2
+  displayName: 'Cache NuGet packages'
+  inputs:
+    key: 'nuget | "$(Agent.OS)" | **/packages.lock.json | **/project.assets.json'
+    path: ~/.nuget/packages
+    restoreKeys: |
+      nuget | "$(Agent.OS)"
+
+- script: |
+    dotnet restore ./be-challenge.sln
+  displayName: 'dotnet restore'
+
+- script: |
+    dotnet build ./be-challenge.sln -c $(buildConfiguration) --no-restore
+  displayName: 'dotnet build'
+
+- script: dotnet test ./be-challenge.sln -c $(buildConfiguration) --no-build --logger "trx;LogFileName=test_results.trx"
+  displayName: 'dotnet test'
