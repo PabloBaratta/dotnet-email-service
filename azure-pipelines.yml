@@ -28,10 +28,10 @@ steps:
   displayName: 'Cache NuGet packages'
   inputs:
     key: 'nuget | "$(Agent.OS)" | $(Build.SourceVersion)'
-    path: ~/.nuget/packages
+    path: $(HOME)/.nuget/packages
     restoreKeys: |
       nuget | "$(Agent.OS)"
-      
+
 - script: |
     dotnet restore ./be-challenge.sln
   displayName: 'dotnet restore'
