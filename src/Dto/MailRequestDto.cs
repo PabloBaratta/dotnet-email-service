@@ -1,8 +1,8 @@
-namespace ConsoleApp1;
+using System.ComponentModel.DataAnnotations;
 
 public record MailRequestDto(
     [property: Required, EmailAddress] string From,
     [property: Required, EmailAddress] string To,
     [property: Required] string Subject,
-    [property: Required] string Body,
+    [property: Required] string Body
 );
