@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+namespace BeChallenge.Dto;
 public record MailRequestDto(
     [property: Required, EmailAddress] string From,
     [property: Required, EmailAddress] string To,
