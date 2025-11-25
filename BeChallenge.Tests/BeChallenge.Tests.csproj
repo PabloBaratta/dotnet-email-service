@@ -19,8 +19,10 @@
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
-<ItemGroup>
-  <None Include="appsettings.Test.json" CopyToOutputDirectory="Always" />
+<ItemGroup Condition="Exists('appsettings.Test.json')">
+  <Content Include="appsettings.Test.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
 </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\BeChallenge.csproj" />
