@@ -21,8 +21,8 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfg = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:User", "user@example.com"},
-                {"Stmp:Password", "secret"}
+                {"Smtp:User", "user@example.com"},
+                {"Smtp:Password", "secret"}
             });
 
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => new GmailProvider(cfg));
@@ -34,8 +34,8 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfg = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:Password", "secret"}
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:Password", "secret"}
             });
 
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => new GmailProvider(cfg));
@@ -47,8 +47,8 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfg = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:User", "user@example.com"}
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:User", "user@example.com"}
             });
 
             ArgumentNullException ex = Assert.Throws<ArgumentNullException>(() => new GmailProvider(cfg));
@@ -60,9 +60,9 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfg = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:User", "user@example.com"},
-                {"Stmp:Password", "secret"}
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:User", "user@example.com"},
+                {"Smtp:Password", "secret"}
             });
 
             GmailProvider provider = new(cfg);
@@ -85,9 +85,9 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfg = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:User", "user@example.com"},
-                {"Stmp:Password", "secret"},
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:User", "user@example.com"},
+                {"Smtp:Password", "secret"},
                 {"Smtp:Port", "2525"},
                 {"Smtp:Ssl", "false"}
             });
@@ -106,9 +106,9 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfg = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:User", "user@example.com"},
-                {"Stmp:Password", "secret"},
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:User", "user@example.com"},
+                {"Smtp:Password", "secret"},
                 {"Smtp:Port", "notanint"}
             });
 
@@ -122,17 +122,17 @@ namespace BeChallenge.Tests.Email
         {
             IConfiguration cfgTrue = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:User", "user@example.com"},
-                {"Stmp:Password", "secret"},
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:User", "user@example.com"},
+                {"Smtp:Password", "secret"},
                 {"Smtp:Ssl", "TRUE"}
             });
 
             IConfiguration cfgFalse = BuildConfig(new Dictionary<string, string>
             {
-                {"Stmp:Host", "smtp.example.com"},
-                {"Stmp:User", "user@example.com"},
-                {"Stmp:Password", "secret"},
+                {"Smtp:Host", "smtp.example.com"},
+                {"Smtp:User", "user@example.com"},
+                {"Smtp:Password", "secret"},
                 {"Smtp:Ssl", "False"}
             });
 

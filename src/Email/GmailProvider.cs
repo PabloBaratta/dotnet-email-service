@@ -8,10 +8,10 @@ namespace BeChallenge.Email
 
     public class GmailProvider(IConfiguration config) : IEmailProvider
     {
-        private readonly string _host = config["Stmp:Host"] ?? throw new ArgumentNullException("Smtp:Host");
+        private readonly string _host = config["Smtp:Host"] ?? throw new ArgumentNullException("Smtp:Host");
         private readonly int _port = int.TryParse(config["Smtp:Port"], out int p) ? p : 587;
-        private readonly string _user = config["Stmp:User"] ?? throw new ArgumentNullException("Smtp:User");
-        private readonly string _password = config["Stmp:Password"] ?? throw new ArgumentNullException("Smtp:Password");
+        private readonly string _user = config["Smtp:User"] ?? throw new ArgumentNullException("Smtp:User");
+        private readonly string _password = config["Smtp:Password"] ?? throw new ArgumentNullException("Smtp:Password");
         private readonly bool _ssl = !bool.TryParse(config["Smtp:Ssl"], out bool s) || s;
 
 
