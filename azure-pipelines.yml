@@ -33,18 +33,18 @@ steps:
       nuget | "$(Agent.OS)"
 
 - script: |
-    dotnet restore ./be-challenge.sln
+    dotnet restore ./BeChallenge.sln
   displayName: 'dotnet restore'
 
 - script: |
-    dotnet build ./be-challenge.sln -c $(buildConfiguration) --no-restore
+    dotnet build ./BeChallenge.sln -c $(buildConfiguration) --no-restore
   displayName: 'dotnet build'
 
 - script: |
     dotnet tool restore
-    dotnet format ./be-challenge.sln --verify-no-changes --include src/ --verbosity minimal
+    dotnet format ./BeChallenge.sln --verify-no-changes --include src/ --verbosity minimal
   displayName: 'Check code format (dotnet-format --verify-no-changes)'
 
 
-- script: dotnet test ./be-challenge.sln -c $(buildConfiguration) --no-build --logger "trx;LogFileName=test_results.trx"
+- script: dotnet test ./BeChallenge.sln -c $(buildConfiguration) --no-build --logger "trx;LogFileName=test_results.trx"
   displayName: 'dotnet test'

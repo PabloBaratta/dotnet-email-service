@@ -1,6 +1,16 @@
-namespace BeChallenge.Service;
-public class EmailService
+using BeChallenge.Domain;
+using BeChallenge.Email;
+
+namespace BeChallenge.Services
 {
-    public void SendEmail(string to, string subject, string body)
-    { }
+    public class EmailService(EmailRegistry emailRegistry)
+    {
+        private readonly EmailRegistry registry = emailRegistry;
+
+        public void SendEmail(MailRequest mailRequest)
+        {
+            IEmailProvider provider = registry.GetProvider(0);
+            _ = provider.SendEmail(mailRequest);
+        }
+    }
 }
