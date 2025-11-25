@@ -1,14 +1,18 @@
 using System.Reflection;
 using BeChallenge.Email;
+using BeChallenge.Domain;
 using Microsoft.Extensions.Configuration;
+ 
 
 namespace BeChallenge.Tests.Email
 {
-    public class GmailProviderTests
+    public class GmailProviderTests(ConfigFixture fixture) : IClassFixture<ConfigFixture>
     {
+        private readonly IConfiguration _config = fixture.Configuration;
         private static IConfiguration BuildConfig(Dictionary<string, string> values)
         {
-            return new ConfigurationBuilder().AddInMemoryCollection(values).Build();
+            IEnumerable<KeyValuePair<string, string?>> converted = values.Select(kv => new KeyValuePair<string, string?>(kv.Key, kv.Value));
+            return new ConfigurationBuilder().AddInMemoryCollection(converted).Build();
         }
 
         private static object GetPrivateField(object instance, string fieldName)
@@ -144,6 +148,29 @@ namespace BeChallenge.Tests.Email
 
             Assert.True(sslTrue);
             Assert.False(sslFalse);
+        }
+
+        [Fact]
+        public async Task SendsEmailWithConfiguredProvider()
+        {
+            if (string.IsNullOrEmpty(_config["Smtp:Host"]) ||
+                string.IsNullOrEmpty(_config["Smtp:User"]) ||
+                string.IsNullOrEmpty(_config["Smtp:Password"]) ||
+                string.IsNullOrEmpty(_config["Mail:From"]) ||
+                string.IsNullOrEmpty(_config["Smtp:To"]))
+            {
+                return;
+            }
+            GmailProvider provider = new(_config);
+
+            MailRequest mail = new(
+                _config["Mail:From"]!,
+                _config["Smtp:To"]!,
+                "BeChallenge Integration Test",
+                $"Integration test message at {DateTime.UtcNow:O}"
+            );
+            using CancellationTokenSource cts = new(TimeSpan.FromSeconds(60));
+            await provider.SendEmail(mail, cts.Token);
         }
     }
 }
