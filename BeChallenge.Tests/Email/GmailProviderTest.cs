@@ -2,7 +2,6 @@ using System.Reflection;
 using BeChallenge.Email;
 using BeChallenge.Domain;
 using Microsoft.Extensions.Configuration;
- 
 
 namespace BeChallenge.Tests.Email
 {
